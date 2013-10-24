@@ -19,25 +19,63 @@
 {
     [super viewDidLoad];
     
-	NSDate *today = [[NSDate alloc] init];
-    [self.dateFormatter setDateFormat:@"HH : mm : ss.S"];
+  
+    
+}
+
+
+-(void) setupTime
+{
+    
+    // Set the initial setting
+    
+    seconds = 30;
+    
+    // Set the labels
+    
+    timerLabel.text = [NSString stringWithFormat: @"Timer: %i", seconds];
+
     
     
-    NSString *currentTime = [self.dateFormatter stringFromDate: today];
-    self.timerLabel.text = currentTime;
+    // Set the timer
+    timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target: self selector:@selector(subtractTime) userInfo: nil repeats: YES];
     
-    _pollingTimer = [NSTimer scheduledTimerWithTimeInterval: 0.1 target:self selector:@selector(pollTime) userInfo:nil repeats:YES];
+}
+
+-(void)subtractTime
+{
+    seconds--;
+    timerLabel.text =[NSString stringWithFormat: @"Timer: %i", seconds];
     
-    [_pollingTimer invalidate];
-    _pollingTimer = nil;
+    if (seconds == 0) {
+        [timer invalidate];
+        
     
-    
+    }
+        
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+- (IBAction) timerButton {
+  
+    [self setupTime];
+  
+    
+}
+
+- (IBAction) stopButton {
+    
+[timer invalidate];
+seconds = 30;
+    
+ timerLabel.text = [NSString stringWithFormat: @"Timer: %i", seconds];   
+    
 }
 
 @end

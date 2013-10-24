@@ -10,11 +10,15 @@
 
 @interface ViewController : UIViewController {
     
+IBOutlet UILabel *timerLabel;
+
+    NSTimer *timer;
+    NSInteger seconds;
+
+    
 }
 
-@property (weak, nonatomic) IBOutlet UILabel *timerLabel;
-@property (weak, nonatomic) NSDateFormatter *dateFormatter;
-@property (weak, nonatomic) NSTimer *pollingTimer;
-
+- (IBAction) timerButton;
+- (IBAction) stopButton;
 
 @end
